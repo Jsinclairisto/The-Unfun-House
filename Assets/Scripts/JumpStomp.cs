@@ -5,14 +5,17 @@ using UnityEngine;
 public class JumpStomp : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    private float bounce;
 
-    // Update is called once per frame
-    void Update()
+    public Rigidbody2D rb2D;
+
+    void OnTriggerEnter2D(Collider2D col)
     {
-        
+        if (col.CompareTag("Enemy")) 
+        {
+            Destroy(col.gameObject);
+            rb2D.velocity = new Vector2(rb2D.velocity.x, bounce);
+        }
     }
 }

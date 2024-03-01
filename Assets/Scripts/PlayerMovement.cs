@@ -70,4 +70,14 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = theScale;
         }
     }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.CompareTag("EnemyDeathCollide"))
+        {
+            Debug.Log("Hitting");
+            Destroy(this.gameObject);
+        }
+    }
+
 }
