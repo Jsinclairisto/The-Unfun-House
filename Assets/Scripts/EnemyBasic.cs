@@ -14,8 +14,11 @@ public class EnemyBasic : MonoBehaviour
         currentPosition = point2.transform;
     }
 
+    
+
     void Update()
     {
+        
         Vector2 point = currentPosition.position - transform.position;
         if (currentPosition == point2.transform)
         {
@@ -27,12 +30,20 @@ public class EnemyBasic : MonoBehaviour
         }
         if (Vector2.Distance(transform.position, currentPosition.position) < 0.5f && currentPosition == point2.transform) 
         {
+            flip();
             currentPosition = point1.transform;
         }
         if (Vector2.Distance(transform.position, currentPosition.position) < 0.5f && currentPosition == point1.transform)
         {
+            flip();
             currentPosition = point2.transform;
         }
 
+    }
+    private void flip()
+    {
+        Vector3 localScale = transform.localScale;
+        localScale.x *= -1;
+        transform.localScale = localScale;
     }
 }
