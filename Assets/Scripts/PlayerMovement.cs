@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float jumpForce;
     private float moveVelocity;
-    public bool isTouchingGround, isInvert, facingRight, isJumping, isFlipped;
+    public bool isTouchingGround, isInvert, facingRight, isJumping, isFlipped, flipBool;
     public Transform groundCheckPoint;
     public float groundCheckRadius;
     public LayerMask groundLayer;
