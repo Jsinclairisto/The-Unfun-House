@@ -9,6 +9,7 @@ public class GravityInverter : MonoBehaviour
 
     void Start()
     {
+        Physics2D.IgnoreLayerCollision(9, 7);
         player = GameObject.FindWithTag("Player");
         player.GetComponent<Rigidbody2D>();
     }
@@ -37,7 +38,7 @@ public class GravityInverter : MonoBehaviour
             }
             else
             {
-                player.transform.localScale = new Vector3(1f, -1f);
+                player.transform.localScale = new Vector3(1f, 1f);
             }
             playerBool.isFlipped = false;
             Destroy(this.gameObject);
