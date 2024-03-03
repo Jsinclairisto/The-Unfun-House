@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private float jumpForce;
     private float moveVelocity;
     public bool isTouchingGround, isInvert, facingRight, isJumping, isFlipped, flipBool;
+    public Animator playerAnimator;
     public Transform groundCheckPoint;
     public float groundCheckRadius;
     public LayerMask groundLayer;
@@ -25,21 +26,20 @@ public class PlayerMovement : MonoBehaviour
         float horizontalMove = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
 
+        
+
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
             moveVelocity = -speed;
             //playerAnimator.SetFloat("speed", Mathf.Abs(horizontalMove));
-            if (isTouchingGround)
-            {
-                //playerAnimator.Play("Player_run");
-            }
+
         }
         if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
             moveVelocity = speed;
             if (isTouchingGround)
             {
-                //playerAnimator.Play("Player_run");
+                //playerAnimator.Play("PLAYER_RUN");
             }
         }
         if (Input.GetKeyDown(KeyCode.Space) && isTouchingGround == true)
@@ -58,6 +58,15 @@ public class PlayerMovement : MonoBehaviour
         }
         Flip(horizontalMove);
         rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
+        if (!isTouchingGround)
+        {
+            playerAnimator.SetBool("IsJumping", true);
+        }
+        else 
+        {
+            playerAnimator.SetBool("IsJumping", false);
+        }
+        playerAnimator.SetFloat("Speed", Mathf.Abs(moveVelocity));
 
     }
     private void Flip(float horizontalMove)
