@@ -7,12 +7,8 @@ public class DeathCollide : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Physics2D.IgnoreLayerCollision(11, 6);
+        Physics2D.IgnoreLayerCollision(11, 10);
+        Physics2D.IgnoreLayerCollision(11, 9);
     }
 }

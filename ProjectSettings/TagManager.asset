@@ -21,7 +21,7 @@ TagManager:
   - GroundCheck
   - JumpStomp
   - Wall
-  - 
+  - DeathCollide
   - 
   - 
   - 
