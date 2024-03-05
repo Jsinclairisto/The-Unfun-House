@@ -13,11 +13,13 @@ public class PlayerMovement : MonoBehaviour
     public Animator playerAnimator;
     public Transform groundCheckPoint;
     public float groundCheckRadius;
+    public TimeControl timeControl;
     public LayerMask groundLayer;
     private Rigidbody2D rb;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        //timeControl = GameObject.FindGameObjectWithTag("TimeControl");
     }
     void Update()
     {
@@ -25,8 +27,7 @@ public class PlayerMovement : MonoBehaviour
         moveVelocity = 0;
         float horizontalMove = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
-
-        
+        timeControl.TimeScale -= 0.00006f;
 
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {

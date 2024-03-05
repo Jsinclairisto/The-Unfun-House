@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - EnemyDeathCollide
+  - TimeControl
   layers:
   - Default
   - TransparentFX
