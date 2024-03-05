@@ -88,6 +88,11 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Hitting");
             Destroy(this.gameObject);
         }
+        if (col.CompareTag("DeathCollide")) 
+        {
+            Destroy(this.gameObject);
+        }
+
         if (col.CompareTag("TimePowerUp")) 
         {
             timeControl.TimeScale = 1;

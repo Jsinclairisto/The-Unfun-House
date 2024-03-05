@@ -8,6 +8,7 @@ TagManager:
   - EnemyDeathCollide
   - TimeControl
   - TimePowerUp
+  - DeathCollide
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - GravityInverter
   - GroundCheck
   - JumpStomp
-  - 
+  - Wall
   - 
   - 
   - 
