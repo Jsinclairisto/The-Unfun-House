@@ -15,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
     public float groundCheckRadius;
     public TimeControl timeControl;
     public LayerMask groundLayer;
+    private float jumpTimeCounter; 
+    public float jumpTime;
     private Rigidbody2D rb;
     void Start()
     {
@@ -27,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
         moveVelocity = 0;
         float horizontalMove = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
-        timeControl.TimeScale -= 0.00006f;
+        timeControl.TimeScale -= 0.00005f;
 
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
@@ -46,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isTouchingGround == true)
         {
             isJumping = true;
-            //jumpTimeCounter = jumpTime;
+            jumpTimeCounter = jumpTime;
             if (isFlipped == true)
             {
                 rb.velocity = Vector2.up * (-1) * jumpForce;
@@ -57,6 +59,31 @@ public class PlayerMovement : MonoBehaviour
                 rb.velocity = Vector2.up * jumpForce;
             }
         }
+        if (Input.GetKey(KeyCode.Space) && isJumping == true)
+        {
+            if (jumpTimeCounter > 0)
+            {
+                if (isFlipped == true)
+                {
+                    rb.velocity = Vector2.up * (-1) * jumpForce;
+                    Debug.Log("FLIPPED");
+                }
+                else if (isFlipped == false)
+                {
+                    rb.velocity = Vector2.up * jumpForce;
+                }
+                jumpTimeCounter -= Time.deltaTime;
+            }
+            else
+            {
+                isJumping = false;
+            }
+        }
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            isJumping = false;
+        }
+
         Flip(horizontalMove);
         rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
         if (!isTouchingGround)
