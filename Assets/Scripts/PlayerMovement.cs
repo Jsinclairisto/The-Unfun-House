@@ -15,21 +15,24 @@ public class PlayerMovement : MonoBehaviour
     public float groundCheckRadius;
     public TimeControl timeControl;
     public LayerMask groundLayer;
-    private float jumpTimeCounter; 
+    private float jumpTimeCounter;
+    private Transform originalParent;
     public float jumpTime;
     private Rigidbody2D rb;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         //timeControl = GameObject.FindGameObjectWithTag("TimeControl");
+        originalParent = transform.parent;
     }
+
     void Update()
     {
         isTouchingGround = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, groundLayer);
         moveVelocity = 0;
         float horizontalMove = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
-        timeControl.TimeScale -= 0.00005f;
+        timeControl.TimeScale -= 0.00011f;
 
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
@@ -97,6 +100,7 @@ public class PlayerMovement : MonoBehaviour
         playerAnimator.SetFloat("Speed", Mathf.Abs(moveVelocity));
 
     }
+    
     private void Flip(float horizontalMove)
     {
         if (horizontalMove > 0 && facingRight || horizontalMove < 0 && !facingRight)
