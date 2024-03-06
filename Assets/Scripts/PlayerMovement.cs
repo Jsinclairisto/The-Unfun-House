@@ -25,14 +25,18 @@ public class PlayerMovement : MonoBehaviour
         //timeControl = GameObject.FindGameObjectWithTag("TimeControl");
         originalParent = transform.parent;
     }
-
+    void FixedUpdate()
+    {
+        timeControl.TimeScale -= 0.0008f;
+        rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
+    }
     void Update()
     {
         isTouchingGround = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, groundLayer);
         moveVelocity = 0;
         float horizontalMove = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
-        timeControl.TimeScale -= 0.00011f;
+        
+        
 
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
