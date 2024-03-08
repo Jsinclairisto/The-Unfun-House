@@ -13,6 +13,7 @@ public class MovingPlatform : MonoBehaviour
     void Start()
     {
         transform.position = points[startingPoint].position;
+        Physics2D.IgnoreLayerCollision(6, 6);
     }
 
     void Update()
@@ -27,7 +28,7 @@ public class MovingPlatform : MonoBehaviour
         }
         transform.position = Vector2.MoveTowards(transform.position, points[i].position, speed * Time.deltaTime);
     }
-    private void OnCollisionEnter2D(Collision2D col)
+    /*private void OnCollisionEnter2D(Collision2D col)
     {
         col.transform.SetParent(transform);
     }
@@ -35,5 +36,5 @@ public class MovingPlatform : MonoBehaviour
     private void OnCollisionExit2D(Collision2D collision)
     {
         collision.transform.SetParent(null);
-    }
+    }*/
 }
