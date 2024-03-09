@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
     private float speed;
     [SerializeField]
     private float jumpForce;
+    public GameObject tombStone;
+    public Transform deathTransform;
     private float moveVelocity;
     public bool isTouchingGround, isInvert, facingRight, isJumping, isFlipped, flipBool, isDead;
     public Animator playerAnimator;
@@ -107,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
     
     private void Flip(float horizontalMove)
     {
-        if (horizontalMove > 0 && facingRight || horizontalMove < 0 && !facingRight && !isDead)
+        if (horizontalMove > 0 && facingRight || horizontalMove < 0 && !facingRight)
         {
             facingRight = !facingRight;
             Vector3 theScale = transform.localScale;
@@ -120,15 +122,19 @@ public class PlayerMovement : MonoBehaviour
     {
         if (col.CompareTag("EnemyDeathCollide"))
         {
-            Die();
-            Debug.Log("Hitting");
-            //Destroy(this.gameObject);
+            Instantiate(tombStone, deathTransform.position, Quaternion.identity);
+            CamShake.Instance.ShakeCamera(5f, .1f);
+            Destroy(this.gameObject);
             //playerAnimator.SetBool("IsDead", true);
             //isDead = true;
         }
         if (col.CompareTag("DeathCollide")) 
         {
-            Die();
+            //playerAnimator.Play("PLAYER_DEATH");
+
+            Instantiate(tombStone, deathTransform.position, Quaternion.identity);
+            CamShake.Instance.ShakeCamera(5f, .1f);
+            Destroy(this.gameObject);
             //Destroy(this.gameObject);
             //playerAnimator.SetBool("IsDead", true);
             //isDead = true;
@@ -138,13 +144,6 @@ public class PlayerMovement : MonoBehaviour
         {
             timeControl.TimeScale = 1;
         }
-    }
-
-    private void Die() 
-    {
-        isDead = true;
-        rb.bodyType = RigidbodyType2D.Static;
-        playerAnimator.Play("PLAYER_DEATH");
     }
 
 }
