@@ -107,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
     
     private void Flip(float horizontalMove)
     {
-        if (horizontalMove > 0 && facingRight || horizontalMove < 0 && !facingRight)
+        if (horizontalMove > 0 && facingRight || horizontalMove < 0 && !facingRight && !isDead)
         {
             facingRight = !facingRight;
             Vector3 theScale = transform.localScale;
@@ -142,8 +142,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Die() 
     {
+        isDead = true;
         rb.bodyType = RigidbodyType2D.Static;
-        playerAnimator.SetBool("IsDead", true);
+        playerAnimator.Play("PLAYER_DEATH");
     }
 
 }
