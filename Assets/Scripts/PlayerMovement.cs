@@ -36,9 +36,12 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         audioSource.pitch = pitchValue;
-        pitchValue -= 0.0008f;
-        timeControl.TimeScale -= 0.0008f;
-        rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
+        if (!isDead)
+        {
+            pitchValue -= 0.0008f;
+            timeControl.TimeScale -= 0.0008f;
+            rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
+        }
     }
     void Update()
     {
