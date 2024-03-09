@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float jumpForce;
     private float moveVelocity;
-    public bool isTouchingGround, isInvert, facingRight, isJumping, isFlipped, flipBool;
+    public bool isTouchingGround, isInvert, facingRight, isJumping, isFlipped, flipBool, isDead;
     public Animator playerAnimator;
     public Transform groundCheckPoint;
     public float groundCheckRadius;
@@ -126,6 +126,7 @@ public class PlayerMovement : MonoBehaviour
         if (col.CompareTag("DeathCollide")) 
         {
             Destroy(this.gameObject);
+
         }
 
         if (col.CompareTag("TimePowerUp")) 
