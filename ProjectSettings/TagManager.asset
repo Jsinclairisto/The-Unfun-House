@@ -9,6 +9,7 @@ TagManager:
   - TimeControl
   - TimePowerUp
   - DeathCollide
+  - Emptytag
   layers:
   - Default
   - TransparentFX

@@ -7,11 +7,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float speed;
     [SerializeField]
-    public AudioSource audioManager;
-    public float pitchValue = 1.0f;
-    //public AudioClip Jump, Powerup, Death;
     private float jumpForce;
+
+    public float pitchValue = 1.0f;
     public GameObject tombStone;
+    public AudioSource audioSource;
+    public AudioClip jumpSound;
+    public AudioClip deathSound;
+    public AudioClip powerup;
     public Transform deathTransform;
     private float moveVelocity;
     public bool isTouchingGround, isInvert, facingRight, isJumping, isFlipped, flipBool, isDead;
@@ -32,7 +35,8 @@ public class PlayerMovement : MonoBehaviour
     }
     void FixedUpdate()
     {
-        //audioManager.pitch -= 0.0008f;
+        audioSource.pitch = pitchValue;
+        pitchValue -= 0.0008f;
         timeControl.TimeScale -= 0.0008f;
         rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
     }
@@ -61,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isTouchingGround == true && !isDead)
         {
             isJumping = true;
-            FindObjectOfType<AudioManager>().Play("Jump");
+            audioSource.PlayOneShot(jumpSound);
             jumpTimeCounter = jumpTime;
             if (isFlipped == true)
             {
@@ -114,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Flip(float horizontalMove)
     {
-        if (horizontalMove > 0 && facingRight || horizontalMove < 0 && !facingRight)
+        if ((horizontalMove > 0 && facingRight || horizontalMove < 0 && !facingRight) && !isDead)
         {
             facingRight = !facingRight;
             Vector3 theScale = transform.localScale;
@@ -127,29 +131,36 @@ public class PlayerMovement : MonoBehaviour
     {
         if (col.CompareTag("EnemyDeathCollide"))
         {
+            //audioSource.PlayOneShot(deathSound);
             Instantiate(tombStone, deathTransform.position, Quaternion.identity);
-            FindObjectOfType<AudioManager>().Play("Death");
+            rb.bodyType = RigidbodyType2D.Static;
+            this.GetComponent<Collider>().enabled = false;
             CamShake.Instance.ShakeCamera(5f, .1f);
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
             //playerAnimator.SetBool("IsDead", true);
-            //isDead = true;
+            isDead = true;
         }
         if (col.CompareTag("DeathCollide"))
         {
             //playerAnimator.Play("PLAYER_DEATH");
-            FindObjectOfType<AudioManager>().Play("Death");
-            Instantiate(tombStone, deathTransform.position, Quaternion.identity);
+            audioSource.PlayOneShot(deathSound);
+            transform.gameObject.tag = "Emptytag";
             CamShake.Instance.ShakeCamera(5f, .1f);
-            Destroy(this.gameObject);
+            Instantiate(tombStone, deathTransform.position, Quaternion.identity);
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            rb.bodyType = RigidbodyType2D.Static;
+            isDead = true;
+            //this.GetComponent<Collider>().enabled = false;
+            //Destroy(this.gameObject);
             //Destroy(this.gameObject);
             //playerAnimator.SetBool("IsDead", true);
-            //isDead = true;
         }
-
+        
         if (col.CompareTag("TimePowerUp"))
         {
             timeControl.TimeScale = 1;
-            FindObjectOfType<AudioManager>().Play("Powerup");
+            pitchValue = 1f;
+            audioSource.PlayOneShot(powerup);
         }
     }
 
