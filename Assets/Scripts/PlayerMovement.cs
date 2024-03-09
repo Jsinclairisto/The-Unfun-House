@@ -7,6 +7,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float speed;
     [SerializeField]
+    public AudioSource audioManager;
+    public float pitchValue = 1.0f;
+    //public AudioClip Jump, Powerup, Death;
     private float jumpForce;
     public GameObject tombStone;
     public Transform deathTransform;
@@ -29,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void FixedUpdate()
     {
+        //audioManager.pitch -= 0.0008f;
         timeControl.TimeScale -= 0.0008f;
         rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
     }
@@ -37,8 +41,8 @@ public class PlayerMovement : MonoBehaviour
         isTouchingGround = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, groundLayer);
         moveVelocity = 0;
         float horizontalMove = Input.GetAxis("Horizontal");
-        
-        
+
+
 
         if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) && !isDead)
         {
@@ -57,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isTouchingGround == true && !isDead)
         {
             isJumping = true;
+            FindObjectOfType<AudioManager>().Play("Jump");
             jumpTimeCounter = jumpTime;
             if (isFlipped == true)
             {
@@ -99,14 +104,14 @@ public class PlayerMovement : MonoBehaviour
         {
             playerAnimator.SetBool("IsJumping", true);
         }
-        else 
+        else
         {
             playerAnimator.SetBool("IsJumping", false);
         }
         playerAnimator.SetFloat("Speed", Mathf.Abs(moveVelocity));
 
     }
-    
+
     private void Flip(float horizontalMove)
     {
         if (horizontalMove > 0 && facingRight || horizontalMove < 0 && !facingRight)
@@ -123,15 +128,16 @@ public class PlayerMovement : MonoBehaviour
         if (col.CompareTag("EnemyDeathCollide"))
         {
             Instantiate(tombStone, deathTransform.position, Quaternion.identity);
+            FindObjectOfType<AudioManager>().Play("Death");
             CamShake.Instance.ShakeCamera(5f, .1f);
             Destroy(this.gameObject);
             //playerAnimator.SetBool("IsDead", true);
             //isDead = true;
         }
-        if (col.CompareTag("DeathCollide")) 
+        if (col.CompareTag("DeathCollide"))
         {
             //playerAnimator.Play("PLAYER_DEATH");
-
+            FindObjectOfType<AudioManager>().Play("Death");
             Instantiate(tombStone, deathTransform.position, Quaternion.identity);
             CamShake.Instance.ShakeCamera(5f, .1f);
             Destroy(this.gameObject);
@@ -140,9 +146,10 @@ public class PlayerMovement : MonoBehaviour
             //isDead = true;
         }
 
-        if (col.CompareTag("TimePowerUp")) 
+        if (col.CompareTag("TimePowerUp"))
         {
             timeControl.TimeScale = 1;
+            FindObjectOfType<AudioManager>().Play("Powerup");
         }
     }
 
