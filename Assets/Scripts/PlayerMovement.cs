@@ -38,13 +38,13 @@ public class PlayerMovement : MonoBehaviour
         
         
 
-        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+        if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) && !isDead)
         {
             moveVelocity = -speed;
             //playerAnimator.SetFloat("speed", Mathf.Abs(horizontalMove));
 
         }
-        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+        if ((Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) && !isDead)
         {
             moveVelocity = speed;
             if (isTouchingGround)
@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
                 //playerAnimator.Play("PLAYER_RUN");
             }
         }
-        if (Input.GetKeyDown(KeyCode.Space) && isTouchingGround == true)
+        if (Input.GetKeyDown(KeyCode.Space) && isTouchingGround == true && !isDead)
         {
             isJumping = true;
             jumpTimeCounter = jumpTime;
@@ -120,19 +120,30 @@ public class PlayerMovement : MonoBehaviour
     {
         if (col.CompareTag("EnemyDeathCollide"))
         {
+            Die();
             Debug.Log("Hitting");
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
+            //playerAnimator.SetBool("IsDead", true);
+            //isDead = true;
         }
         if (col.CompareTag("DeathCollide")) 
         {
-            Destroy(this.gameObject);
-
+            Die();
+            //Destroy(this.gameObject);
+            //playerAnimator.SetBool("IsDead", true);
+            //isDead = true;
         }
 
         if (col.CompareTag("TimePowerUp")) 
         {
             timeControl.TimeScale = 1;
         }
+    }
+
+    private void Die() 
+    {
+        rb.bodyType = RigidbodyType2D.Static;
+        playerAnimator.SetBool("IsDead", true);
     }
 
 }
