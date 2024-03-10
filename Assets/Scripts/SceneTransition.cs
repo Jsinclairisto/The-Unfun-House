@@ -24,7 +24,7 @@ public class SceneTransition : MonoBehaviour
     IEnumerator LoadLevel(int levelIndex) 
     {
         transition.SetTrigger("Start");
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.35f);
         SceneManager.LoadScene(levelIndex);
     }
 

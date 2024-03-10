@@ -10,5 +10,9 @@ public class MusicScript : MonoBehaviour
     void FixedUpdate()
     {
         themeMusic.pitch = playerReference.pitchValue;
+        if (playerReference.isDead == true) 
+        {
+            themeMusic.Stop();
+        }
     }
 }
