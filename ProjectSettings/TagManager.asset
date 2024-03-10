@@ -11,6 +11,7 @@ TagManager:
   - DeathCollide
   - Emptytag
   - deathText
+  - exit
   layers:
   - Default
   - TransparentFX

@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isPlaying = false;
     public Transform deathTransform;
     private float moveVelocity;
-    public bool isTouchingGround, isInvert, facingRight, isJumping, isFlipped, flipBool, isDead;
+    public bool isTouchingGround, isInvert, facingRight, isJumping, isFlipped, flipBool, isDead, isWin = false;
     public Animator playerAnimator;
     public Transform groundCheckPoint;
     public float groundCheckRadius;
@@ -187,6 +187,11 @@ public class PlayerMovement : MonoBehaviour
             timeControl.TimeScale = 1;
             pitchValue = 1f;
             audioSource.PlayOneShot(powerup);
+        }
+
+        if (col.CompareTag("exit")) 
+        {
+            isWin = true;
         }
     }
 /*

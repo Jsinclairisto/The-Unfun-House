@@ -24,6 +24,25 @@ public class MainSceneTransition : MonoBehaviour
             Destroy(deathText);
             LoadNextLevel();
         }
+        if (playerDeath.isWin == true) 
+        {
+            LoadWinlevel();
+        }
+    }
+
+    public void LoadWinlevel()
+    {
+        timeReset.TimeScale = 1f;
+        //playerDeath.pitchValue = 1f;
+        StartCoroutine(LoadWin(SceneManager.GetActiveScene().buildIndex + 1));
+
+    }
+
+    IEnumerator LoadWin(int levelIndex)
+    {
+        transition.SetTrigger("Start");
+        yield return new WaitForSeconds(0.35f);
+        SceneManager.LoadScene(levelIndex);
     }
 
     public void LoadNextLevel()
