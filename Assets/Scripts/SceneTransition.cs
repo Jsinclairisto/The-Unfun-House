@@ -6,11 +6,13 @@ using UnityEngine.SceneManagement;
 public class SceneTransition : MonoBehaviour
 {
     public Animator transition;
+    
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return)) 
         {
+            
             LoadNextLevel();
         }       
     }

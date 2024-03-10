@@ -11,11 +11,17 @@ public class MainSceneTransition : MonoBehaviour
     private PlayerMovement playerDeath;
     [SerializeField]
     private TimeControl timeReset;
+    public GameObject deathText;
     // Update is called once per frame
+    void Start()
+    {
+        deathText = GameObject.FindWithTag("deathText");
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
+            Destroy(deathText);
             LoadNextLevel();
         }
     }

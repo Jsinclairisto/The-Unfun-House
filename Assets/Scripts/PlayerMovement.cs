@@ -59,8 +59,8 @@ public class PlayerMovement : MonoBehaviour
             dieScreen.SetActive(true);
             restartText.SetActive(true);
             //timesUpScreen.SetActive(true);
-            //restartText.SetActive(true);
-            //isDead = true;
+            restartText.SetActive(true);
+            isDead = true;
             rb.bodyType = RigidbodyType2D.Static;
             this.GetComponent<Collider>().enabled = false;
         }
