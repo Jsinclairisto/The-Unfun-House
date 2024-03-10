@@ -13,8 +13,12 @@ public class PlayerMovement : MonoBehaviour
     public GameObject tombStone;
     public AudioSource audioSource;
     public AudioClip jumpSound;
+    public GameObject timesUpScreen;
+    public GameObject dieScreen;
+    public GameObject restartText;
     public AudioClip deathSound;
     public AudioClip powerup;
+    public bool isPlaying = false;
     public Transform deathTransform;
     private float moveVelocity;
     public bool isTouchingGround, isInvert, facingRight, isJumping, isFlipped, flipBool, isDead;
@@ -36,11 +40,29 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         audioSource.pitch = pitchValue;
-        if (!isDead)
+        rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
+        if (!isDead && pitchValue >= 0.01)
         {
             pitchValue -= 0.0008f;
             timeControl.TimeScale -= 0.0008f;
-            rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
+        }
+        else if(!isDead && pitchValue <= 0.01)
+        {
+            timesUpScreen.SetActive(true);
+            restartText.SetActive(true);
+            isDead = true;
+            rb.bodyType = RigidbodyType2D.Static;
+            this.GetComponent<Collider>().enabled = false;
+        }
+        else if(isDead && pitchValue >= 0.01)
+        {
+            dieScreen.SetActive(true);
+            restartText.SetActive(true);
+            //timesUpScreen.SetActive(true);
+            //restartText.SetActive(true);
+            //isDead = true;
+            rb.bodyType = RigidbodyType2D.Static;
+            this.GetComponent<Collider>().enabled = false;
         }
     }
     void Update()
@@ -146,6 +168,7 @@ public class PlayerMovement : MonoBehaviour
         if (col.CompareTag("DeathCollide"))
         {
             //playerAnimator.Play("PLAYER_DEATH");
+            //isPlaying = false;
             audioSource.PlayOneShot(deathSound);
             transform.gameObject.tag = "Emptytag";
             CamShake.Instance.ShakeCamera(5f, .1f);
@@ -166,5 +189,11 @@ public class PlayerMovement : MonoBehaviour
             audioSource.PlayOneShot(powerup);
         }
     }
+/*
+    void timeDie() 
+    {
+        rb.bodyType = RigidbodyType2D.Static;
+        this.GetComponent<Collider>().enabled = false;
+    }*/
 
 }
