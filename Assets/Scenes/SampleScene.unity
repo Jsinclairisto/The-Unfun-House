@@ -2298,7 +2298,7 @@ MonoBehaviour:
   isWin: 0
   playerAnimator: {fileID: 214383109}
   groundCheckPoint: {fileID: 2146852422}
-  groundCheckRadius: 0.28
+  groundCheckRadius: 0.45
   timeControl: {fileID: 771124503}
   groundLayer:
     serializedVersion: 2
@@ -2337,7 +2337,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: c6670ef27d08c5240b6756a2f4c284a2, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5760,7 +5760,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0027923584, y: -0.053279877, z: 0}
+  m_LocalPosition: {x: -0.0004911423, y: -0.053279877, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -28017,7 +28017,7 @@ Transform:
   m_GameObject: {fileID: 1135432856}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0027923584, y: -0.053279877, z: 0}
+  m_LocalPosition: {x: -0.0004911423, y: -0.053279877, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
