@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
 
     public float pitchValue = 1.0f;
     public GameObject tombStone;
+    public GameObject goForth;
+    public GameObject arrowGraphic;
     public AudioSource audioSource;
     public AudioClip jumpSound;
     public GameObject timesUpScreen;
@@ -36,6 +38,8 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         //timeControl = GameObject.FindGameObjectWithTag("TimeControl");
         originalParent = transform.parent;
+        goForth = GameObject.FindWithTag("GoForthMessage");
+        arrowGraphic = GameObject.FindWithTag("Arrow");
     }
     void FixedUpdate()
     {
@@ -75,12 +79,16 @@ public class PlayerMovement : MonoBehaviour
 
         if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) && !isDead)
         {
+            Destroy(goForth);
+            Destroy(arrowGraphic);
             moveVelocity = -speed;
             //playerAnimator.SetFloat("speed", Mathf.Abs(horizontalMove));
 
         }
         if ((Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) && !isDead)
         {
+            Destroy(goForth);
+            Destroy(arrowGraphic);
             moveVelocity = speed;
             if (isTouchingGround)
             {
@@ -89,6 +97,8 @@ public class PlayerMovement : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space) && isTouchingGround == true && !isDead)
         {
+            Destroy(goForth);
+            Destroy(arrowGraphic);
             isJumping = true;
             audioSource.PlayOneShot(jumpSound);
             jumpTimeCounter = jumpTime;

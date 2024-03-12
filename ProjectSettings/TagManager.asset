@@ -12,6 +12,8 @@ TagManager:
   - Emptytag
   - deathText
   - exit
+  - GoForthMessage
+  - Arrow
   layers:
   - Default
   - TransparentFX
