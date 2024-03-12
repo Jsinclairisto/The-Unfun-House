@@ -18,20 +18,20 @@ public class DownPlatform : MonoBehaviour
     {
         transform.Translate(Vector3.down * speed * Time.deltaTime);
     }
-    private void OnCollisionEnter2D(Collision2D col)
+    private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.name == "Player")
+        if (col.CompareTag("Player"))
         {
             col.gameObject.transform.SetParent(transform);
             Rigidbody2D playerRb = col.gameObject.GetComponent<Rigidbody2D>();
             playerRb.interpolation = RigidbodyInterpolation2D.None;
-            speed = 4f;
+            speed = 4.4f;
         }
     }
 
-    private void OnCollisionExit2D(Collision2D col)
+    private void OnTriggerExit2D(Collider2D col)
     {
-        if (col.gameObject.name == "Player")
+        if (col.CompareTag("Player"))
         {
             col.gameObject.transform.SetParent(null);
             Rigidbody2D playerRb = col.gameObject.GetComponent<Rigidbody2D>();
