@@ -25,7 +25,7 @@ public class DownPlatform : MonoBehaviour
             col.gameObject.transform.SetParent(transform);
             Rigidbody2D playerRb = col.gameObject.GetComponent<Rigidbody2D>();
             playerRb.interpolation = RigidbodyInterpolation2D.None;
-            speed = 4.4f;
+            speed = 5f;
         }
     }
 
